@@ -33,6 +33,7 @@ var game = {
 
   // register our player entity in the object pool
   me.pool.register("mainPlayer", game.PlayerEntity);
+  me.pool.register("secondPlayer", game.PlayerEntity2);
 
   // enable the keyboard
   me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -41,7 +42,11 @@ var game = {
   me.input.bindKey(me.input.KEY.X,      "jump", true);
   me.input.bindKey(me.input.KEY.UP,     "jump", true);
   me.input.bindKey(me.input.KEY.SPACE,  "jump", true);
-
+  //2p
+  me.input.bindKey(me.input.KEY.A, "A")
+  me.input.bindKey(me.input.KEY.D, "D");
+  // map X, Up Arrow and Space for jump
+  me.input.bindKey(me.input.KEY.W,     "W", true);
   // start the game
   me.state.change(me.state.PLAY);
     }
