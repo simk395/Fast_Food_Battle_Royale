@@ -10,6 +10,15 @@ game.PlayerEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, 'init', [x, y , settings]);
     },
+    var BackgroundLayer = me.ImageLayer.extend({
+        init: function(image, z, speed) {
+          name = image;
+          width = 900;
+          height = 600;
+          ratio = 1;
+          // call parent constructor
+          this.parent(name, width, height, image, z, ratio);
+        },
 
     /**
      * update the entity
