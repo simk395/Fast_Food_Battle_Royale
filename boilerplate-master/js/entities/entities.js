@@ -20,10 +20,11 @@ game.PlayerEntity = me.Entity.extend({
       this.alwaysUpdate = true;
   
       // define a basic walking animation (using all frames)
-      this.renderable.addAnimation("walk",  [0, 1, 2, 3, 4, 5, 6, 7]);
+      this.renderable.addAnimation("walk",  [1, 2, 3, 4]);
   
       // define a standing animation (using the first frame)
       this.renderable.addAnimation("stand",  [0]);
+      this.renderable.addAnimation("crouch", [5]);
   
       // set the standing animation as default
       this.renderable.setCurrentAnimation("stand");
@@ -54,7 +55,8 @@ game.PlayerEntity = me.Entity.extend({
             if (!this.renderable.isCurrentAnimation("walk")) {
                 this.renderable.setCurrentAnimation("walk");
             }
-        } else {
+        }
+        else {
             this.body.force.x = 0;
             // change to the standing animation
             this.renderable.setCurrentAnimation("stand");
@@ -88,6 +90,12 @@ game.PlayerEntity = me.Entity.extend({
      */
     onCollision : function (response, other) {
       // Make all other objects solid
+      if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
+        // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+        
+        return false;
+    }
       return true;
     }
   });
@@ -182,6 +190,12 @@ game.PlayerEntity2 = me.Entity.extend({
      */
     onCollision : function (response, other) {
       // Make all other objects solid
+      if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
+        // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+        
+        return false;
+    }
       return true;
     }
   });

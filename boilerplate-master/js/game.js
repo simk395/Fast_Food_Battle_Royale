@@ -47,6 +47,7 @@ var game = {
   me.input.bindKey(me.input.KEY.D, "D");
   // map X, Up Arrow and Space for jump
   me.input.bindKey(me.input.KEY.W,     "W", true);
+  me.input.bindKey(me.input.KEY.DOWN, "crouch", true);
   // start the game
   me.state.change(me.state.PLAY);
     }
