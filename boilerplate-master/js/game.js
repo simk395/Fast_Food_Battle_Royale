@@ -5,6 +5,7 @@ var game = {
     // an object where to store game information
     data : {
         // score
+        initHealth: 3,
         score : 0
     },
 
@@ -27,13 +28,14 @@ var game = {
 
     // Run on game resources loaded.
     "loaded" : function () {
-       
+
        // set the "Play/Ingame" Screen Object
   me.state.set(me.state.PLAY, new game.PlayScreen());
 
   // register our player entity in the object pool
   me.pool.register("mainPlayer", game.PlayerEntity);
   me.pool.register("secondPlayer", game.PlayerEntity2);
+  me.pool.register("ball", game.BallEntity);
 
   // enable the keyboard
   me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -47,6 +49,7 @@ var game = {
   me.input.bindKey(me.input.KEY.D, "D");
   // map X, Up Arrow and Space for jump
   me.input.bindKey(me.input.KEY.W,     "W", true);
+  me.input.bindKey(me.input.KEY.DOWN, "crouch", true);
   // start the game
   me.state.change(me.state.PLAY);
     }

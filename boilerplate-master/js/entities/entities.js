@@ -20,10 +20,11 @@ game.PlayerEntity = me.Entity.extend({
       this.alwaysUpdate = true;
 
       // define a basic walking animation (using all frames)
-      this.renderable.addAnimation("walk",  [0, 1, 2, 3, 4, 5, 6, 7]);
+      this.renderable.addAnimation("walk",  [1, 2, 3, 4]);
 
       // define a standing animation (using the first frame)
       this.renderable.addAnimation("stand",  [0]);
+      this.renderable.addAnimation("crouch", [5]);
 
       // set the standing animation as default
       this.renderable.setCurrentAnimation("stand");
@@ -54,7 +55,8 @@ game.PlayerEntity = me.Entity.extend({
             if (!this.renderable.isCurrentAnimation("walk")) {
                 this.renderable.setCurrentAnimation("walk");
             }
-        } else {
+        }
+        else {
             this.body.force.x = 0;
             // change to the standing animation
             this.renderable.setCurrentAnimation("stand");
@@ -89,10 +91,11 @@ game.PlayerEntity = me.Entity.extend({
     onCollision : function (response, other) {
       // Make all other objects solid
       if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
-             // res.y >0 means touched by something on the bottom
-             // which mean at top position for this one
-          return false;
-          }
+        // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+
+        return false;
+    }
       return true;
     }
   });
@@ -188,10 +191,49 @@ game.PlayerEntity2 = me.Entity.extend({
     onCollision : function (response, other) {
       // Make all other objects solid
       if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
-             // res.y >0 means touched by something on the bottom
-             // which mean at top position for this one
-          return false;
-          }
+        // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+
+        return false;
+    }
       return true;
     }
   });
+
+
+  game.BallEntity = me.CollectableEntity.extend({
+  // extending the init function is not mandatory
+  // unless you need to add some extra initialization
+  init: function (x, y, settings) {
+    // call the parent constructor
+    this._super(me.CollectableEntity, 'init', [x, y , settings]);
+    this.body.setMaxVelocity(20, 3);
+    this.body.setFriction(0.0, 0);
+
+    // set the display to follow our position on both axis
+    // me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH, 0.4);
+
+    // ensure the player is updated even when outside of the viewport
+    this.alwaysUpdate = true;
+  },
+
+  // this function is called by the engine, when
+  // an object is touched by something (here collected)
+  onCollision : function (response, other) {
+    // do something when collected
+
+    // make sure it cannot be collected "again"
+    if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
+      // res.y >0 means touched by something on the bottom
+      // which mean at top position for this one
+
+      return true;
+  }
+    // this.body.setCollisionMask(me.collision.types.NO_OBJECT);
+
+    // remove it
+    // me.game.world.removeChild(this);
+
+    return true
+  }
+});
