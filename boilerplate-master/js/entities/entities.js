@@ -93,7 +93,6 @@ game.PlayerEntity = me.Entity.extend({
       if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
         // res.y >0 means touched by something on the bottom
         // which mean at top position for this one
-
         return false;
     }
       return true;
@@ -201,39 +200,75 @@ game.PlayerEntity2 = me.Entity.extend({
   });
 
 
-  game.BallEntity = me.CollectableEntity.extend({
+  game.BallEntity = me.Entity.extend({
   // extending the init function is not mandatory
   // unless you need to add some extra initialization
-  init: function (x, y, settings) {
-    // call the parent constructor
-    this._super(me.CollectableEntity, 'init', [x, y , settings]);
-    this.body.setMaxVelocity(20, 3);
+  init : function (x, y, settings) {
+    // call the constructor
+    this._super(me.Entity, 'init', [x, y, settings]);
+
+    // max walking & jumping speed
+    this.body.setMaxVelocity(100, 100);
     this.body.setFriction(0.0, 0);
+    this.body.gravity = 0;
 
     // set the display to follow our position on both axis
-    // me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH, 0.4);
+    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH, 0.4);
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
+
+    // define a basic walking animation (using all frames)
+    // this.renderable.addAnimation("walk",  [0, 1, 2, 3, 4, 5, 6, 7]);
+    //
+    // // define a standing animation (using the first frame)
+    // this.renderable.addAnimation("stand",  [0]);
+    //
+    // // set the standing animation as default
+    // this.renderable.setCurrentAnimation("stand");
   },
 
-  // this function is called by the engine, when
-  // an object is touched by something (here collected)
-  onCollision : function (response, other) {
-    // do something when collected
+  /**
+   * update the entity
+   */
+  update : function (dt) {
 
-    // make sure it cannot be collected "again"
+
+      this.body.force.y = 0;
+      this.body.force.x = 0;
+
+      // apply physics to the body (this moves the entity)
+      this.body.update(dt);
+
+      // handle collisions against other shapes
+      me.collision.check(this);
+
+      // return true if we moved or if the renderable was updated
+      return (this._super(me.Entity, 'update', [dt]) || this.body.vel.x !== 0 || this.body.vel.y !== 0);
+  },
+
+  /**
+   * colision handler
+   * (called when colliding with other objects)
+   */
+  onCollision : function (response, other) {
+    // Make all other objects solid
+    this.body.bounce = 1.5;
+    // other.body.friction = 0;
     if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
       // res.y >0 means touched by something on the bottom
       // which mean at top position for this one
-
+      game.data.score += 1
+      if (other.name == "mainPlayer"){
+          const container = document.getElementById('screen')
+          const body = document.querySelector('body')
+          container.remove()
+          // console.log(other.name)
+          alert(`${other.name} has won with ${game.data.score} bounces`)
+          body.innerHTML += `${other.name} has won with ${game.data.score} bounces`
+        }
       return true;
   }
-    // this.body.setCollisionMask(me.collision.types.NO_OBJECT);
-
-    // remove it
-    // me.game.world.removeChild(this);
-
-    return true
+    return true;
   }
-});
+  });

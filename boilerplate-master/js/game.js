@@ -6,7 +6,8 @@ var game = {
     data : {
         // score
         initHealth: 3,
-        score : 0
+        score : 0,
+        playerone: 0
     },
 
 
