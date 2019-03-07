@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#259818" nextlayerid="15" nextobjectid="22">
+<map version="1.2" tiledversion="1.2.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="0" backgroundcolor="#ffd58f" nextlayerid="19" nextobjectid="22">
  <tileset firstgid="1" source="classic tileset.tsx"/>
  <layer id="1" name="Forerground" width="30" height="20" offsetx="3" offsety="4">
   <data encoding="base64">
@@ -21,7 +21,7 @@
     <property name="image" value="gripe_run_right"/>
    </properties>
   </object>
-  <object id="21" name="ball" x="460.138" y="292.084" width="41.4794" height="39.7511">
+  <object id="21" name="ball" x="460.138" y="292.084" width="31.1096" height="29.3813">
    <properties>
     <property name="framewidth" value="32"/>
     <property name="image" value="spinning_coin_gold"/>

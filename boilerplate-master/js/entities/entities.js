@@ -35,7 +35,7 @@ game.PlayerEntity = me.Entity.extend({
      */
     update : function (dt) {
 
-        if (me.input.isKeyPressed('left')) {
+        if (me.input.isKeyPressed('A')) {
 
             // flip the sprite on horizontal axis
             this.renderable.flipX(true);
@@ -45,7 +45,7 @@ game.PlayerEntity = me.Entity.extend({
             if (!this.renderable.isCurrentAnimation("walk")) {
                 this.renderable.setCurrentAnimation("walk");
             }
-        } else if (me.input.isKeyPressed('right')) {
+        } else if (me.input.isKeyPressed('D')) {
 
             // unflip the sprite
             this.renderable.flipX(false);
@@ -62,7 +62,7 @@ game.PlayerEntity = me.Entity.extend({
             this.renderable.setCurrentAnimation("stand");
         }
 
-        if (me.input.isKeyPressed('jump')) {
+        if (me.input.isKeyPressed('W')) {
 
             if (!this.body.jumping && !this.body.falling)
             {
@@ -135,7 +135,7 @@ game.PlayerEntity2 = me.Entity.extend({
      */
     update : function (dt) {
 
-        if (me.input.isKeyPressed('A')) {
+        if (me.input.isKeyPressed('left')) {
 
             // flip the sprite on horizontal axis
             this.renderable.flipX(true);
@@ -145,7 +145,7 @@ game.PlayerEntity2 = me.Entity.extend({
             if (!this.renderable.isCurrentAnimation("walk")) {
                 this.renderable.setCurrentAnimation("walk");
             }
-        } else if (me.input.isKeyPressed('D')) {
+        } else if (me.input.isKeyPressed('right')) {
 
             // unflip the sprite
             this.renderable.flipX(false);
@@ -161,7 +161,7 @@ game.PlayerEntity2 = me.Entity.extend({
             this.renderable.setCurrentAnimation("stand");
         }
 
-        if (me.input.isKeyPressed('W')) {
+        if (me.input.isKeyPressed('jump')) {
 
             if (!this.body.jumping && !this.body.falling)
             {
@@ -259,13 +259,30 @@ game.PlayerEntity2 = me.Entity.extend({
       // res.y >0 means touched by something on the bottom
       // which mean at top position for this one
       game.data.score += 1
-      if (other.name == "mainPlayer"){
+      if (other.name == "secondPlayer"){
           const container = document.getElementById('screen')
-          const body = document.querySelector('body')
+          const words = document.querySelector('#words')
+
+          words.addEventListener("click", function(e){
+            if (e.target.nodeName === "BUTTON" ) {
+              let one = e.target.parentElement.querySelector('.one').value
+              let two = e.target.parentElement.querySelector('.two').value
+              let score = e.target.parentElement.querySelector('.score').value
+              words.innerHTML += `<br>Match ${one} vs ${two}. Bounces: ${score}`
+            }
+          })
+
           container.remove()
           // console.log(other.name)
-          alert(`${other.name} has won with ${game.data.score} bounces`)
-          body.innerHTML += `${other.name} has won with ${game.data.score} bounces`
+          alert(`${other.name} has finished with ${game.data.score-1} bounces`)
+          words.innerHTML += `${other.name} has lasted with ${game.data.score-1} bounces<br>
+          <label>Ronald Mcdonald User Name:</label><input class="one" type="text"></input>
+          <label>Blue Blob User Name:</label><input class="two" type="text"></input>
+          <input type="hidden" class="score" value=${game.data.score-1}></input>
+          <button>submit</button>`
+
+
+
         }
       return true;
   }
