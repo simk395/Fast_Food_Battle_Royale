@@ -15,11 +15,18 @@ var game = {
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
-        if (!me.video.init(960, 640, {wrapper : "screen", scale : "auto", scalemethod: "flex-width"})) {
+        if (!me.video.init(960, 640, {wrapper : "screen",})) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
-
+        const div = document.createElement("div");
+        const screen = document.querySelector("#screen");
+        const leaderboard = document.createElement('p');
+        leaderboard.innerText = "Leaderboard"
+        getData().then(res => res.forEach(info => {
+            div.innerHTML += `${info.playerone} & ${info.playertwo} ${info.bounces} </br>`
+        }))
+        screen.append(leaderboard, div);
         // Initialize the audio.
         me.audio.init("mp3,ogg");
 
@@ -57,3 +64,8 @@ var game = {
     me.state.change(me.state.MENU);
     }
 };
+
+function getData(){
+    return fetch('http://localhost:3000/game_sessions')
+    .then(res => res.json())
+}

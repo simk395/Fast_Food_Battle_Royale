@@ -270,6 +270,7 @@ game.PlayerEntity2 = me.Entity.extend({
               let two = e.target.parentElement.querySelector('.two').value
               let score = e.target.parentElement.querySelector('.score').value
               words.innerHTML += `<br>Match ${one} vs ${two}. Bounces: ${score}`
+              postData(one,two,score)
             }
           })
           me.audio.stopTrack();
@@ -281,7 +282,7 @@ game.PlayerEntity2 = me.Entity.extend({
           <label>Blue Blob User Name:</label><input class="two" type="text"></input>
           <input type="hidden" class="score" value=${game.data.score-1}></input>
           <button>submit</button>`
-
+          
 
 
         }
@@ -290,3 +291,11 @@ game.PlayerEntity2 = me.Entity.extend({
     return true;
   }
   });
+
+  function postData(one, two, score){
+    fetch('http://localhost:3000/game_sessions', {
+              method:'post',
+              headers:{'Content-Type': 'application/json', 'Accept': 'application/json'},
+              body: JSON.stringify({playerone: one, playertwo: two, bounces: score})
+          }).then(res => res.json()).then(console.log)
+  }
