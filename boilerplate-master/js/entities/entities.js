@@ -256,6 +256,7 @@ game.PlayerEntity2 = me.Entity.extend({
     // Make all other objects solid
     this.body.bounce = 1.5;
     // other.body.friction = 0;
+
     if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
       // res.y >0 means touched by something on the bottom
       // which mean at top position for this one
@@ -263,7 +264,7 @@ game.PlayerEntity2 = me.Entity.extend({
       if (other.name == "secondPlayer"){
           const container = document.getElementById('screen')
           const words = document.querySelector('#words')
-
+          
           words.addEventListener("click", function(e){
             if (e.target.nodeName === "BUTTON" ) {
               let one = e.target.parentElement.querySelector('.one').value
@@ -287,6 +288,8 @@ game.PlayerEntity2 = me.Entity.extend({
 
         }
       return true;
+  }else{
+    me.audio.play("boing")
   }
     return true;
   }
