@@ -1,22 +1,32 @@
 
+
 /* Game namespace */
 var game = {
 
     // an object where to store game information
     data : {
         // score
-        score : 0
+        initHealth: 3,
+        score : 0,
+        playerone: 0
     },
 
 
     // Run on page load.
     "onload" : function () {
         // Initialize the video.
-        if (!me.video.init(960, 640, {wrapper : "screen", scale : "auto", scalemethod: "flex-width"})) {
+        if (!me.video.init(960, 640, {wrapper : "screen",})) {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
-
+        const div = document.createElement("div");
+        const screen = document.querySelector("#screen");
+        const leaderboard = document.createElement('p');
+        leaderboard.innerText = "Leaderboard"
+        getData().then(res => res.forEach(info => {
+            div.innerHTML += `${info.playerone} & ${info.playertwo} ${info.bounces} </br>`
+        }))
+        screen.append(leaderboard, div);
         // Initialize the audio.
         me.audio.init("mp3,ogg");
 
@@ -27,14 +37,14 @@ var game = {
 
     // Run on game resources loaded.
     "loaded" : function () {
-       
+
        // set the "Play/Ingame" Screen Object
   me.state.set(me.state.PLAY, new game.PlayScreen());
 
   // register our player entity in the object pool
-  me.pool.register("mainPlayer", game.Player);
-  me.pool.register("secondPlayer", game.Player2);
-  me.pool.register("Ball", game.Ball);
+  me.pool.register("mainPlayer", game.PlayerEntity);
+  me.pool.register("secondPlayer", game.PlayerEntity2);
+  me.pool.register("ball", game.BallEntity);
 
   // enable the keyboard
   me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -53,3 +63,8 @@ var game = {
   me.state.change(me.state.PLAY);
     }
 };
+
+function getData(){
+    return fetch('http://localhost:3000/game_sessions')
+    .then(res => res.json())
+}

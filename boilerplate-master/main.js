@@ -1,3 +1,9 @@
+// fetch('http://localhost:3000/game_sessions')
+// .then(res => res.json())
+// .then(json => function(json){
+//   const words = document.getElementById('words')
+//   console.log(json)
+// })
 const electron = require('electron');
 const app = electron.app;  // Module to control application life.
 const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
@@ -17,7 +23,7 @@ app.on('window-all-closed', () => {
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 960, height: 660 });
+  mainWindow = new BrowserWindow({ width: 960, height: 640 });
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
