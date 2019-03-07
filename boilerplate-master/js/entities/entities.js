@@ -1,7 +1,7 @@
 /**
  * a player entity
  */
-game.PlayerEntity = me.Entity.extend({
+game.Player = me.Entity.extend({
     /**
      * constructor
      */
@@ -91,9 +91,7 @@ game.PlayerEntity = me.Entity.extend({
     onCollision : function (response, other) {
       // Make all other objects solid
       if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
-        // res.y >0 means touched by something on the bottom
-        // which mean at top position for this one
-        
+      
         return false;
     }
       return true;
@@ -103,7 +101,7 @@ game.PlayerEntity = me.Entity.extend({
   /**
  * a player entity
  */
-game.PlayerEntity2 = me.Entity.extend({
+game.Player2 = me.Entity.extend({
     /**
      * constructor
      */
@@ -198,4 +196,41 @@ game.PlayerEntity2 = me.Entity.extend({
     }
       return true;
     }
+  });
+
+  game.Ball = me.Entity.extend({
+    init : function (x, y, settings) {
+        // call the constructor
+        this._super(me.Entity, 'init', [x, y, settings]);
+
+        // define a standing animation (using the first frame)
+        this.renderable.addAnimation("idle",  [0,1,2,3,4,5,6]);
+    
+        // set the standing animation as default
+        this.renderable.setCurrentAnimation("idle");
+        this.body.gravity = 0;
+        this.body.setMaxVelocity(10,50);
+      },
+      update : function (dt) {  
+        
+        // apply physics to the body (this moves the entity)
+        this.body.update(dt);
+  
+        // handle collisions against other shapes
+        me.collision.check(this);
+  
+        // return true if we moved or if the renderable was updated
+        return (this._super(me.Entity, 'update', [dt]) || this.body.vel.x !== 0 || this.body.vel.y !== 0);
+    },
+    onCollision : function (response, other) {
+        // Make all other objects solid
+        if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
+          // res.y >0 means touched by something on the bottom
+          // which mean at top position for this one
+          this.body.bounce = 3;
+          return true;
+      }
+        return true;
+      }
+
   });

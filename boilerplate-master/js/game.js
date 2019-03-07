@@ -32,8 +32,9 @@ var game = {
   me.state.set(me.state.PLAY, new game.PlayScreen());
 
   // register our player entity in the object pool
-  me.pool.register("mainPlayer", game.PlayerEntity);
-  me.pool.register("secondPlayer", game.PlayerEntity2);
+  me.pool.register("mainPlayer", game.Player);
+  me.pool.register("secondPlayer", game.Player2);
+  me.pool.register("Ball", game.Ball);
 
   // enable the keyboard
   me.input.bindKey(me.input.KEY.LEFT,  "left");
