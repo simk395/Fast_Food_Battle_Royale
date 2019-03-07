@@ -1,3 +1,4 @@
+
 /**
  * a player entity
  */
@@ -271,7 +272,7 @@ game.PlayerEntity2 = me.Entity.extend({
               words.innerHTML += `<br>Match ${one} vs ${two}. Bounces: ${score}`
             }
           })
-
+          me.audio.stopTrack();
           container.remove()
           // console.log(other.name)
           alert(`${other.name} has finished with ${game.data.score-1} bounces`)

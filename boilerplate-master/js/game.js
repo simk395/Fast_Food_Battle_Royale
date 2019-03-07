@@ -30,10 +30,10 @@ var game = {
 
     // Run on game resources loaded.
     "loaded" : function () {
-
+  me.state.set(me.state.MENU, new game.TitleScreen());
        // set the "Play/Ingame" Screen Object
   me.state.set(me.state.PLAY, new game.PlayScreen());
-
+  me.state.transition("fade", "#FFFFFF", 250);
   // register our player entity in the object pool
   me.pool.register("mainPlayer", game.PlayerEntity);
   me.pool.register("secondPlayer", game.PlayerEntity2);
@@ -53,6 +53,7 @@ var game = {
   me.input.bindKey(me.input.KEY.W,     "W", true);
   me.input.bindKey(me.input.KEY.DOWN, "crouch", true);
   // start the game
-  me.state.change(me.state.PLAY);
+  // me.state.change(me.state.MENU);
+    me.state.change(me.state.MENU);
     }
 };
