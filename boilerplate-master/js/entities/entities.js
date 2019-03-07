@@ -274,7 +274,13 @@ game.PlayerEntity2 = me.Entity.extend({
             }
           })
           me.audio.stopTrack();
-          container.remove()
+          container.remove();
+
+            me.input.unbindKey(me.input.KEY.A, "A")
+            me.input.unbindKey(me.input.KEY.D, "D");
+            // map X, Up Arrow and Space for jump
+            me.input.unbindKey(me.input.KEY.W,     "W", true);
+          
           // console.log(other.name)
           alert(`${other.name} has finished with ${game.data.score-1} bounces`)
           words.innerHTML += `${other.name} has lasted with ${game.data.score-1} bounces<br>
@@ -282,7 +288,7 @@ game.PlayerEntity2 = me.Entity.extend({
           <label>Blue Blob User Name:</label><input class="two" type="text"></input>
           <input type="hidden" class="score" value=${game.data.score-1}></input>
           <button>submit</button>`
-          
+
 
 
         }
