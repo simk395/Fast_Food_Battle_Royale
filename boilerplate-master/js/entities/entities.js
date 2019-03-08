@@ -254,8 +254,16 @@ game.PlayerEntity2 = me.Entity.extend({
    */
   onCollision : function (response, other) {
     // Make all other objects solid
-    this.body.bounce = 1.5;
+    this.body.bounce = 1.25;
+
     // other.body.friction = 0;
+    // if (other.body.collisionType != me.collision.types.PLAYER_OBJECT) {
+    //   other.body.bounce = 1.3;
+    //
+    // }
+      if (response.b.body.collisionType === me.collision.types.WORLD_SHAPE) {
+        other.body.bounce = 1;
+      }
 
     if (response.b.body.collisionType !== me.collision.types.WORLD_SHAPE) {
       // res.y >0 means touched by something on the bottom
@@ -279,7 +287,6 @@ game.PlayerEntity2 = me.Entity.extend({
           // me.event.GAME_RESET
           const theGame = document.getElementById('game')
           container.remove();
-
             me.input.unbindKey(me.input.KEY.A, "A")
             me.input.unbindKey(me.input.KEY.D, "D");
             // map X, Up Arrow and Space for jump

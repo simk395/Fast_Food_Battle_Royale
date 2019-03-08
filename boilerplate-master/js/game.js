@@ -29,7 +29,7 @@ var game = {
         const leaderboard = document.createElement('p');
         leaderboard.innerText = "Leaderboard"
         getData().then(res => res.sort(function(a, b){return b.bounces - a.bounces}).forEach(info => {
-            div.innerHTML += `${info.playerone} & ${info.playertwo} ${info.bounces} <button data-id="${info.id}">Delete</button></br>`
+            div.innerHTML += `<div data-id="${info.id}">${info.playerone} & ${info.playertwo} ${info.bounces} <button data-id="${info.id}">Delete</button></div>`
         }))
         screen.addEventListener("click", function(e){
             e.preventDefault();
@@ -89,7 +89,7 @@ function deleteData(id){
     })
     .then(res => {
         const score = document.querySelector(`button[data-id='${id}']`);
-        score.parentElement.remove();
+        score.parentElement.remove()
     })
 
 }
