@@ -289,9 +289,6 @@ game.PlayerEntity2 = me.Entity.extend({
           <label>Blue Blob User Name:</label><input class="two" type="text"></input>
           <input type="hidden" class="score" value=${game.data.score-1}></input>
           <button>submit</button>`
-
-
-
         }
       return true;
   }else{
