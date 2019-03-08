@@ -21,11 +21,22 @@ var game = {
         }
         const div = document.createElement("div");
         const screen = document.querySelector("#screen");
+        const disclaimer = document.createElement("h1")
+        disclaimer.innerText = "DISCLAIMER: THIS GAME IS A MEME!"
+        disclaimer.style.textAlign = "center";
+        screen.append(disclaimer);
         const leaderboard = document.createElement('p');
         leaderboard.innerText = "Leaderboard"
         getData().then(res => res.forEach(info => {
-            div.innerHTML += `${info.playerone} & ${info.playertwo} ${info.bounces} </br>`
+            div.innerHTML += `${info.playerone} & ${info.playertwo} ${info.bounces} <button data-id="${info.id}">Delete</button></br>`
         }))
+        screen.addEventListener("click", function(e){
+            e.preventDefault();
+            if(e.target.tagName === "BUTTON"){
+                deleteData(e.target.dataset.id)
+            }
+        })
+        
         screen.append(leaderboard, div);
         // Initialize the audio.
         me.audio.init("mp3,ogg");
@@ -68,4 +79,16 @@ var game = {
 function getData(){
     return fetch('http://localhost:3000/game_sessions')
     .then(res => res.json())
+}
+
+function deleteData(id){
+    return fetch(`http://localhost:3000/game_sessions/${id}`, {
+        method: 'DELETE',
+        headers:{'Content-Type': 'application/json'}
+    })
+    .then(res => {
+        const score = document.querySelector(`button[data-id='${id}']`);
+        score.parentElement.remove();
+    })
+        
 }
