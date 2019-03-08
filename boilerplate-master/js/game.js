@@ -28,7 +28,7 @@ var game = {
         screen.append(disclaimer);
         const leaderboard = document.createElement('p');
         leaderboard.innerText = "Leaderboard"
-        getData().then(res => res.forEach(info => {
+        getData().then(res => res.sort(function(a, b){return b.bounces - a.bounces}).forEach(info => {
             div.innerHTML += `${info.playerone} & ${info.playertwo} ${info.bounces} <button data-id="${info.id}">Delete</button></br>`
         }))
         screen.addEventListener("click", function(e){
