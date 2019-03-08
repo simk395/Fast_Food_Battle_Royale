@@ -27,10 +27,10 @@
     <property name="image" value="gripe_run_right"/>
    </properties>
   </object>
-  <object id="21" name="ball" x="460.138" y="292.084" width="31.1096" height="29.3813">
+  <object id="21" name="ball" x="460.138" y="292.084" width="41.25" height="58">
    <properties>
-    <property name="framewidth" value="32"/>
-    <property name="image" value="spinning_coin_gold"/>
+    <property name="framewidth" value="41.25"/>
+    <property name="image" value="donkeykongroll (1)"/>
    </properties>
    <ellipse/>
   </object>
