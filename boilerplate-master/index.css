@@ -1,6 +1,9 @@
 body {
     background-color: #000;
     color: #fff;
+    background-image: url('https://media.giphy.com/media/3o7TKAZ5N3YHQzGKK4/giphy.gif');
+    background-size: cover !important;
+    background-repeat: no-repeat;
 
     /* Allow mouse dragging. */
     -moz-user-select: none;
@@ -20,7 +23,7 @@ body {
 
 #screen canvas {
     margin: auto;
-
+    padding-top: 50px;
     /* Hide the gap for font descenders. */
     display: block;
 
@@ -32,4 +35,10 @@ body {
     image-rendering: optimize-contrast;
     image-rendering: pixelated;
     -ms-interpolation-mode: nearest-neighbor;
+}
+
+@import "compass/css3";
+
+body{
+  font-family: 'Varela', sans-serif;
 }

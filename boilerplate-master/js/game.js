@@ -20,6 +20,7 @@ var game = {
             return;
         }
         const div = document.createElement("div");
+        div.className = "glitch"
         const screen = document.querySelector("#screen");
         const disclaimer = document.createElement("h1")
         disclaimer.innerText = "DISCLAIMER: THIS GAME IS A MEME!"
@@ -36,7 +37,7 @@ var game = {
                 deleteData(e.target.dataset.id)
             }
         })
-        
+
         screen.append(leaderboard, div);
         // Initialize the audio.
         me.audio.init("mp3,ogg");
@@ -90,5 +91,5 @@ function deleteData(id){
         const score = document.querySelector(`button[data-id='${id}']`);
         score.parentElement.remove();
     })
-        
+
 }
