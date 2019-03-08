@@ -264,7 +264,7 @@ game.PlayerEntity2 = me.Entity.extend({
       if (other.name == "secondPlayer"){
           const container = document.getElementById('screen')
           const words = document.querySelector('#words')
-          
+
           words.addEventListener("click", function(e){
             if (e.target.nodeName === "BUTTON" ) {
               let one = e.target.parentElement.querySelector('.one').value
@@ -275,13 +275,14 @@ game.PlayerEntity2 = me.Entity.extend({
             }
           })
           me.audio.stopTrack();
+          // me.state.change(me.state.MENU);
           container.remove();
 
             me.input.unbindKey(me.input.KEY.A, "A")
             me.input.unbindKey(me.input.KEY.D, "D");
             // map X, Up Arrow and Space for jump
             me.input.unbindKey(me.input.KEY.W,     "W", true);
-          
+
           // console.log(other.name)
           alert(`${other.name} has finished with ${game.data.score-1} bounces`)
           words.innerHTML += `${other.name} has lasted with ${game.data.score-1} bounces<br>
