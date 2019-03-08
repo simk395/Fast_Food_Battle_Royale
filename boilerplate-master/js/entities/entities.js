@@ -289,7 +289,7 @@ game.PlayerEntity2 = me.Entity.extend({
           // alert(`${other.name} has finished with ${game.data.score-1} bounces`)
           words.innerHTML += `<h1>GAME OVER</h1><h2>blue Boy has lasted with ${game.data.score-1} bounces</h2>
           <label>Ronald Mcdonald User Name:</label><input class="one" type="text"></input>
-          <label>Blue Blob User Name:</label><input class="two" type="text"></input>
+          <label>Blue Boy User Name:</label><input class="two" type="text"></input>
           <input type="hidden" class="score" value=${game.data.score-1}></input>
           <button>submit</button>`
         }
